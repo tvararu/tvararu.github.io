@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Turcia v0.2a</title>
+	</head>
+	
+	<body style="background: red;">
+		<script src="http://cdnjs.cloudflare.com/ajax/libs/bonsai/0.4/bonsai.min.js"></script>
+		<div id="flag"></div>
+		<script>
+		  bonsai.run(document.getElementById('flag'), {
+			code: function() {
+				stage.setBackgroundColor('red');
+				
+				new Circle(300, 300, 250)
+					.addTo(stage)
+					.fill('white');
+					
+				new Circle(370, 300, 200)
+					.addTo(stage)
+					.fill('red');
+					
+				new Star(700, 300, 100, 5)
+					.addTo(stage)
+					.fill('white')
+					.animate('5s', {rotation: Math.PI*2}, {repeat:9001});
+				
+				new Bitmap('images/turcia.png').on('load', function() {
+					this.addTo(stage)
+						.attr({x: 900, y: 150})
+						.attr('filters', filter.Saturate(5));
+				});
+			},
+		    width: 1200,
+		    height: 600
+		  });
+		</script>
+		<audio src="audio/turkey.mp3" autoplay="autoplay" loop="loop">
+		</audio>
+	</body>
+</html>
