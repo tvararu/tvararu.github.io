@@ -1,20 +1,16 @@
-html, body {
+html, body, .container {
   width: 100%;
   height: 100%;
-  background: #eee;
+}
+
+.container {
+  background: #ecf0f1;
   position: relative;
 }
-/*
-#logo_wrapper {
-  background: #eee;
-  width: 100%;
-  height: 100%;
-  position: relative;
-}*/
 
 #logo_wrapper {
-  width: 505px;
-  height: 255px;
+  width: 256px;
+  height: 128px;
   position: absolute;
   left: 50%;
   top: 30%;
@@ -22,8 +18,8 @@ html, body {
 }
 
 #logo {
-  width: 505px;
-  height: 255px;
+  width: 256px;
+  height: 128px;
   position: absolute;
   transform-style: preserve-3d;
 }
@@ -34,14 +30,14 @@ html, body {
 
 #logo_grey {
   background: url('../img/logo-main-grey.png') no-repeat;
-  width: 505px;
-  height: 255px;
+  width: 256px;
+  height: 128px;
   transform: scale(0.99);
 }
 
 #logo_white {
   background: url('../img/logo-main-white.png') no-repeat;
-  width: 505px;
-  height: 255px;
+  width: 256px;
+  height: 128px;
   transform: translateZ(10px);
 }

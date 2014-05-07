@@ -1,6 +1,6 @@
 $(document).ready(function() {
   var browsers = ['-ms-', '-webkit-', '-moz-', '-o-', ''];
-  var $wrapper = $('body');
+  var $wrapper = $('.container');
   var $logo = $('#logo');
 
   $wrapper.mouseenter(function() {
