@@ -103,7 +103,7 @@ html, body, .container {
   white-space: nowrap;
 }
 
-/* Courtesy of Mary Lou from Codrops: http://tympanus.net/codrops/2014/06/04/inspiration-for-inline-anchor-styles/*/
+/* Courtesy of Mary Lou from Codrops: http://tympanus.net/codrops/2014/06/04/inspiration-for-inline-anchor-styles/ */
 .link-scaleupbounce a::before {
   position: absolute;
   top: 0;
