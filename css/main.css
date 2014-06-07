@@ -24,7 +24,7 @@ html, body, .container {
   position: relative;
 }
 
-#logo_wrapper {
+#logo-wrapper {
   width: 16em;
   height: 8em;
   position: absolute;
@@ -40,11 +40,11 @@ html, body, .container {
   transform-style: preserve-3d;
 }
 
-#logo_grey, #logo_white {
+#logo-background, #logo-foreground {
   position: absolute;
 }
 
-#logo_grey {
+#logo-background {
   background: url('../img/logo-main-grey.png') no-repeat;
   width: 16em;
   height: 8em;
@@ -52,7 +52,7 @@ html, body, .container {
   transform: scale(0.99);
 }
 
-#logo_white {
+#logo-foreground {
   background: url('../img/logo-main-white.png') no-repeat;
   width: 16em;
   height: 8em;
@@ -61,11 +61,11 @@ html, body, .container {
 }
 
 @media all and (-webkit-min-device-pixel-ratio: 1.5) {
-  #logo_grey {
+  #logo-background {
     background-image: url('../img/logo-main-grey@2x.png');
   }
   
-  #logo_white {
+  #logo-foreground {
     background-image: url('../img/logo-main-white@2x.png');
   }
 }
