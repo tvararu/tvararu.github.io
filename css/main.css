@@ -5,7 +5,7 @@
   src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v7/ODelI1aHBYDBqgeIAH2zlDLXPPWpYIJRcQ99gLLWTOQ.woff) format('woff');
 }
 
-*, *:before, *:after {
+*, *::before, *::after {
   box-sizing: border-box;
 }
 
