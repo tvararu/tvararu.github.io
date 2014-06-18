@@ -1,9 +1,4 @@
-@font-face {
-  font-family: 'Source Sans Pro';
-  font-style: normal;
-  font-weight: 400;
-  src: local('Source Sans Pro'), local('SourceSansPro-Regular'), url(http://themes.googleusercontent.com/static/fonts/sourcesanspro/v7/ODelI1aHBYDBqgeIAH2zlDLXPPWpYIJRcQ99gLLWTOQ.woff) format('woff');
-}
+@import url(http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&subset=latin,latin-ext);
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -14,7 +9,6 @@ html, body, .container {
   height: 100%;
   font-family: 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
   font-size: 16px;
-  font-weight: 400;
   line-height: 1.5em;
   color: #333;
 }
@@ -83,11 +77,15 @@ html, body, .container {
   font-size: 2em;
   line-height: 2em;
   margin-bottom: 1em;
+  
+  font-weight: 400;
 }
 
 .copy .two-col span {
   width: 8em;
   float: left;
+  
+  font-weight: 600;
 }
 
 .copy .links a, .copy .links a:visited, .copy .links a:hover {
