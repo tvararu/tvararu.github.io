@@ -15,5 +15,7 @@ gulp.task('serve', function() {
     './*.html',
     './css/**/*.css',
     './js/**/*.js'
-  ], browserSync.reload);
+  ], function() {
+    browserSync.reload({ once: true });
+  });
 });
