@@ -89,19 +89,24 @@ gulp.task('build:base', ['wiredep', 'stylus', 'images'], function () {
     .pipe(gulp.dest(paths.dist));
 });
 
+var CRIT = '';
+
 gulp.task('critical', ['build:base'], function(done){
   penthouseAsync({
     url: 'http://localhost:3000',
     css: paths.dist + '/css/main.css'
   }).then( function (criticalCSS){
-    fs.writeFile(paths.dist + '/css/critical.css', criticalCSS, done);
+    CRIT = criticalCSS.replace('\n', '');
+    done();
   });
 });
 
 gulp.task('build:critical', ['critical'], function () {
   return gulp.src(paths.dist + '/index.html')
-    .pipe($.replace('css/main.css', 'css/critical.css'))
-    .pipe($.inlineCss())
+    .pipe($.replace(
+      '<link rel=stylesheet href=css/main.css>',
+      '<style>' + CRIT + '</style>'
+    ))
     .pipe(gulp.dest(paths.dist));
 });
 
