@@ -18,6 +18,7 @@
   "dependencies": {
     "jquery": "~2.1.1",
     "modernizr": "~2.8.3",
-    "normalize-css": "~3.0.1"
+    "normalize-css": "~3.0.1",
+    "loadcss": "~0.1.1"
   }
 }

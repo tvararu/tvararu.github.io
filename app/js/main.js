@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  loadCSS('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&subset=latin,latin-ext');
+
   $('.links .email').html("<a href='mailto:&#116;&#104;&#101;&#111;&#64;&#118;&#97;&#114;&#97;&#114;&#117;&#46;&#111;&#114;&#103;'>Email</a>");
 
   var browsers = ['-ms-', '-webkit-', '-moz-', '-o-', ''];
