@@ -27,7 +27,10 @@ gulp.task('html', ['wiredep'], function () {
 });
 
 gulp.task('css', function () {
-  
+  return gulp.src(paths.app + '/css/main.styl')
+    .pipe($.stylus())
+    .pipe($.autoprefixer())
+    .pipe(gulp.dest(paths.tmp + '/css'));
 });
 
 gulp.task('js', function () {
@@ -36,8 +39,8 @@ gulp.task('js', function () {
 
 gulp.task('watch', ['build'], function () {
   gulp.watch(['bower.json'], ['wiredep']);
-  gulp.watch([paths.app + '/css'], ['css']);
-  gulp.watch([paths.app + '/js'], ['js']);
+  gulp.watch([paths.app + '/css/**.*'], ['css']);
+  gulp.watch([paths.app + '/js/**.*'], ['js']);
 
   gulp.start('serve');
 });
