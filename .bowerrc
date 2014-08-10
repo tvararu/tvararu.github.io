@@ -1,7 +1,7 @@
 {
   "directory": "app/bower_components",
   "scripts": {
-    "postinstall": "./node_modules/wiredep/wiredep-cli.js -s path/to/src.html"
+    "postinstall": "./node_modules/wiredep/wiredep-cli.js -s app/index.html"
   }
 }
 
