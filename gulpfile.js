@@ -6,6 +6,10 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var browserSync = require('browser-sync');
 var saveLicense = require('uglify-save-license');
+var penthouse = require('penthouse');
+var Promise = require('bluebird');
+var penthouseAsync = Promise.promisify(penthouse);
+var fs = require('fs');
 var pagespeed = require('psi');
 var ngrok = require('ngrok');
 
@@ -105,6 +109,16 @@ gulp.task('serve', function () {
     server: {
       baseDir: paths.dist
     }
+  });
+});
+
+gulp.task('critical', function(done){
+  penthouseAsync({
+    url: 'http://localhost:3000',
+    css: paths.dist + '/css/main.css',
+    height: 480
+  }).then( function (criticalCSS){
+    fs.writeFile(paths.dist + '/css/critical.css', criticalCSS, done);
   });
 });
 

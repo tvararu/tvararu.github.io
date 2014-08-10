@@ -10,6 +10,7 @@
   "author": "Theodor Vararu",
   "license": "MIT",
   "dependencies": {
+    "bluebird": "^2.2.2",
     "browser-sync": "^1.1.2",
     "compression": "^1.0.10",
     "express": "^4.8.2",
@@ -25,6 +26,7 @@
     "gulp-uglify": "^0.3.1",
     "gulp-useref": "^0.6.0",
     "ngrok": "^0.1.97",
+    "penthouse": "^0.2.5",
     "psi": "^0.1.1",
     "uglify-save-license": "^0.4.1",
     "wiredep": "^1.8.2"
