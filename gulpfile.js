@@ -35,9 +35,9 @@ gulp.task('js', function () {
 });
 
 gulp.task('watch', ['build'], function () {
-  gulp.watch(['./bower.json'], ['wiredep']);
-  gulp.watch([paths.app + 'css'], ['css']);
-  gulp.watch([paths.app + 'js'], ['js']);
+  gulp.watch(['bower.json'], ['wiredep']);
+  gulp.watch([paths.app + '/css'], ['css']);
+  gulp.watch([paths.app + '/js'], ['js']);
 
   gulp.start('serve');
 });
