@@ -62,7 +62,7 @@ gulp.task('images', function () {
     .pipe(gulp.dest(paths.dist + '/img'));
 });
 
-gulp.task('build', ['wiredep', 'stylus', 'images'], function () {
+gulp.task('prebuild', ['wiredep', 'stylus', 'images'], function () {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var htmlFilter = $.filter('**/*.html');
@@ -89,6 +89,13 @@ gulp.task('build', ['wiredep', 'stylus', 'images'], function () {
     .pipe(gulp.dest(paths.dist));
 });
 
+gulp.task('build', ['critical'], function () {
+  return gulp.src(paths.dist + '/index.html')
+    .pipe($.replace('css/main.css', 'css/critical.css'))
+    .pipe($.inlineCss())
+    .pipe(gulp.dest(paths.dist));
+});
+
 gulp.task('watch', ['wiredep', 'stylus'], function () {
   gulp.watch(['bower.json'], ['wiredep']);
   gulp.watch([paths.app + '/css/**.*'], ['stylus']);
@@ -112,7 +119,7 @@ gulp.task('serve', function () {
   });
 });
 
-gulp.task('critical', function(done){
+gulp.task('critical', ['prebuild'], function(done){
   penthouseAsync({
     url: 'http://localhost:3000',
     css: paths.dist + '/css/main.css',
