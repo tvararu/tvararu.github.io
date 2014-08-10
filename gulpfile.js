@@ -10,7 +10,7 @@ var browserSync = require('browser-sync');
 
 var paths = {
   app: './app',
-  tmp: './tmp',
+  tmp: './.tmp',
   dist: './dist'
 };
 
