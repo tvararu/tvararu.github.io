@@ -3,11 +3,11 @@ CACHE MANIFEST
 
 CACHE:
 index.html
-css/main.css
 img/logo-main-grey.png
 img/logo-main-grey@2x.png
 img/logo-main-white.png
 img/logo-main-white@2x.png
+css/main.css
 js/main.js
 
 
@@ -20,4 +20,4 @@ https://*
 SETTINGS:
 prefer-online
 
-# hash: 8e032e8b76c1784fb6d150eebf69425fc0f70e12bae39e1cc5b613a69233f2fa
+# hash: 9fe2410e3a5b9d762268b65db85cd5f053c558111a1b8ef6c7de0f6f0f6722a7
