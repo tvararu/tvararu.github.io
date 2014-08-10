@@ -5,12 +5,35 @@ var $ = require('gulp-load-plugins')();
 
 var wiredep = require('wiredep').stream;
 var browserSync = require('browser-sync');
+var saveLicense = require('uglify-save-license');
 
 var paths = {
   app: 'app',
   tmp: '.tmp',
   dist: 'dist'
 };
+
+var opts = {
+  autoprefixer: [
+    'ie >= 10',
+    'ie_mob >= 10',
+    'ff >= 30',
+    'chrome >= 34',
+    'safari >= 7',
+    'opera >= 23',
+    'ios >= 7',
+    'android >= 4.4',
+    'bb >= 10'
+  ],
+  uglify: {
+    preserveComments: saveLicense
+  },
+  imagemin: {
+    progressive: true,
+    interlaced: true
+  }
+};
+
 
 gulp.task('default', ['build']);
 
@@ -23,12 +46,13 @@ gulp.task('wiredep', function () {
 gulp.task('stylus', function () {
   return gulp.src(paths.app + '/css/main.styl')
     .pipe($.stylus())
-    .pipe($.autoprefixer())
+    .pipe($.autoprefixer(opts.autoprefixer))
     .pipe(gulp.dest(paths.tmp + '/css'));
 });
 
 gulp.task('images', function () {
   return gulp.src(paths.app + '/img/**.*')
+    .pipe($.cache($.imagemin(opts.imagemin)))
     .pipe(gulp.dest(paths.dist + '/img'));
 });
 
@@ -42,10 +66,11 @@ gulp.task('build', ['wiredep', 'stylus', 'images'], function () {
     .pipe(assets)
 
     .pipe(jsFilter)
-    .pipe($.uglify())
+    .pipe($.uglify(opts.uglify))
     .pipe(jsFilter.restore())
 
     .pipe(cssFilter)
+    .pipe($.minifyCss())
     .pipe(cssFilter.restore())
 
     .pipe(assets.restore())
