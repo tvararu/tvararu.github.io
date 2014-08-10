@@ -12,9 +12,7 @@ var paths = {
   dist: 'dist'
 };
 
-gulp.task('default', ['watch']);
-
-gulp.task('build', ['html', 'css', 'js']);
+gulp.task('default', ['build']);
 
 gulp.task('wiredep', function () {
   return gulp.src(paths.app + '/index.html')
@@ -22,30 +20,22 @@ gulp.task('wiredep', function () {
     .pipe(gulp.dest(paths.app));
 });
 
-gulp.task('html', ['wiredep'], function () {
-
-});
-
-gulp.task('css', function () {
+gulp.task('stylus', function () {
   return gulp.src(paths.app + '/css/main.styl')
     .pipe($.stylus())
     .pipe($.autoprefixer())
     .pipe(gulp.dest(paths.tmp + '/css'));
 });
 
-gulp.task('js', function () {
-  
+gulp.task('build', ['wiredep', 'stylus'], function () {
+  return gulp.src(paths.app + '/index.html')
+    .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('watch', ['build'], function () {
+gulp.task('watch', ['wiredep', 'stylus'], function () {
   gulp.watch(['bower.json'], ['wiredep']);
-  gulp.watch([paths.app + '/css/**.*'], ['css']);
-  gulp.watch([paths.app + '/js/**.*'], ['js']);
+  gulp.watch([paths.app + '/css/**.*'], ['stylus']);
 
-  gulp.start('serve');
-});
-
-gulp.task('serve', function () {
   browserSync.init(null, {
     server: {
       baseDir: [paths.app, paths.tmp]
@@ -58,7 +48,7 @@ gulp.task('serve', function () {
   }); 
 });
 
-gulp.task('serve:dist', function () {
+gulp.task('serve', function () {
   browserSync.init(null, {
     server: {
       baseDir: paths.dist
