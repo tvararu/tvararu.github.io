@@ -1,4 +1,6 @@
 $(document).ready(function() {
+  $('.links .email').html("<a href='mailto:&#116;&#104;&#101;&#111;&#64;&#118;&#97;&#114;&#97;&#114;&#117;&#46;&#111;&#114;&#103;'>Email</a>");
+
   var browsers = ['-ms-', '-webkit-', '-moz-', '-o-', ''];
   var $wrapper = $('.container');
   var $logo = $('#logo');

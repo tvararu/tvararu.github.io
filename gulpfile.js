@@ -27,8 +27,34 @@ gulp.task('stylus', function () {
     .pipe(gulp.dest(paths.tmp + '/css'));
 });
 
-gulp.task('build', ['wiredep', 'stylus'], function () {
+gulp.task('images', function () {
+  return gulp.src(paths.app + '/img/**.*')
+    .pipe(gulp.dest(paths.dist + '/img'));
+});
+
+gulp.task('build', ['wiredep', 'stylus', 'images'], function () {
+  var jsFilter = $.filter('**/*.js');
+  var cssFilter = $.filter('**/*.css');
+  var htmlFilter = $.filter('**/*.html');
+  var assets = $.useref.assets();
+
   return gulp.src(paths.app + '/index.html')
+    .pipe(assets)
+
+    .pipe(jsFilter)
+    .pipe($.uglify())
+    .pipe(jsFilter.restore())
+
+    .pipe(cssFilter)
+    .pipe(cssFilter.restore())
+
+    .pipe(assets.restore())
+    .pipe($.useref())
+
+    .pipe(htmlFilter)
+    .pipe($.minifyHtml())
+    .pipe(htmlFilter.restore())
+    
     .pipe(gulp.dest(paths.dist));
 });
 
@@ -39,8 +65,7 @@ gulp.task('watch', ['wiredep', 'stylus'], function () {
   browserSync.init(null, {
     server: {
       baseDir: [paths.app, paths.tmp]
-    },
-    notify: false
+    }
   });
 
   gulp.watch([paths.tmp + '/**/*'], function() {
@@ -52,8 +77,7 @@ gulp.task('serve', function () {
   browserSync.init(null, {
     server: {
       baseDir: paths.dist
-    },
-    notify: false
+    }
   });
 });
 

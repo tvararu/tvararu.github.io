@@ -13,11 +13,14 @@
     <meta property="og:type" content="website" />
     <meta property="og:image" content="img/logo-main-grey@2x.png" />
     <meta property="og:url" content="http://vararu.org" />
-   
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+    <!-- build:css({app,.tmp}) css/main.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/normalize-css/normalize.css" />
     <!-- endbower -->
-    <link rel="stylesheet" href="css/main.css" type="text/css" media="screen">
+    <link rel="stylesheet" href="css/main.css">
+    <!-- endbuild -->
   </head>
   <body>
     <div class="container">
@@ -35,21 +38,18 @@
         </div>
         <div class="links two-col">
           <span class="blog link-animate"><a href="http://blog.vararu.org/">Blog</a></span>
-          <span class="email link-animate">
-            <script type="text/javascript">
-            <!--
-             document.write("<a href='mailto:&#116;&#104;&#101;&#111;&#64;&#118;&#97;&#114;&#97;&#114;&#117;&#46;&#111;&#114;&#103;'>Email</a>")
-            // -->
-            </script>
-          </span>
+          <span class="email link-animate"></span>
         </div>
       </div>
     </div>
+
+    <!-- build:js({app,.tmp}) js/main.js -->
     <!-- bower:js -->
     <script src="bower_components/modernizr/modernizr.js"></script>
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <!-- endbower -->
-    <script src="js/analytics.js" type="text/javascript" charset="utf-8"></script>
-    <script src="js/main.js" type="text/javascript" charset="utf-8"></script>
+    <script src="js/analytics.js"></script>
+    <script src="js/main.js"></script>
+    <!-- endbuild -->
   </body>
 </html>
