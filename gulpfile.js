@@ -92,8 +92,7 @@ gulp.task('build:base', ['wiredep', 'stylus', 'images'], function () {
 gulp.task('critical', ['build:base'], function(done){
   penthouseAsync({
     url: 'http://localhost:3000',
-    css: paths.dist + '/css/main.css',
-    height: 480
+    css: paths.dist + '/css/main.css'
   }).then( function (criticalCSS){
     fs.writeFile(paths.dist + '/css/critical.css', criticalCSS, done);
   });
