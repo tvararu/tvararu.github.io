@@ -6,6 +6,8 @@ var $ = require('gulp-load-plugins')();
 var wiredep = require('wiredep').stream;
 var browserSync = require('browser-sync');
 var saveLicense = require('uglify-save-license');
+var pagespeed = require('psi');
+var ngrok = require('ngrok');
 
 var paths = {
   app: 'app',
@@ -105,4 +107,17 @@ gulp.task('serve', function () {
     }
   });
 });
+
+gulp.task('pagespeed', function (done) {
+  ngrok.connect(3000, function(err, url) {
+    pagespeed({
+      url: url,
+      strategy: 'mobile'
+    }, function () {
+      done();
+      process.exit(0);
+    });
+  });
+});
+
 
