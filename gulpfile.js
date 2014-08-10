@@ -1,7 +1,5 @@
 'use strict';
 
-var path = require('path');
-
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
@@ -19,14 +17,13 @@ gulp.task('default', ['watch']);
 gulp.task('build', ['html', 'css', 'js']);
 
 gulp.task('wiredep', function () {
-  return gulp.src(path.join(paths.app, 'index.html'))
+  return gulp.src(paths.app + '/index.html')
     .pipe(wiredep())
     .pipe(gulp.dest(paths.app));
 });
 
 gulp.task('html', ['wiredep'], function () {
-  return gulp.src(path.join(paths.app, 'index.html'))
-    .pipe(gulp.dest(paths.tmp));
+
 });
 
 gulp.task('css', function () {
@@ -38,9 +35,9 @@ gulp.task('js', function () {
 });
 
 gulp.task('watch', ['build'], function () {
-  gulp.watch([path.join(paths.tmp, '*.html')], ['html']);
-  gulp.watch([path.join(paths.tmp, 'css')], ['css']);
-  gulp.watch([path.join(paths.tmp, 'js')], ['js']);
+  gulp.watch(['./bower.json'], ['wiredep']);
+  gulp.watch([paths.app + 'css'], ['css']);
+  gulp.watch([paths.app + 'js'], ['js']);
 
   gulp.start('serve');
 });
@@ -48,13 +45,12 @@ gulp.task('watch', ['build'], function () {
 gulp.task('serve', function () {
   browserSync.init(null, {
     server: {
-      baseDir: [paths.app, paths.tmp],
-      index: path.join(paths.tmp, 'index.html')
+      baseDir: [paths.app, paths.tmp]
     },
     notify: false
   });
 
-  gulp.watch([path.join(paths.tmp, '**/*')], function() {
+  gulp.watch([paths.tmp + '/**/*'], function() {
     browserSync.reload({ once: true });
   }); 
 });
