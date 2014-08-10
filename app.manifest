@@ -1,0 +1,24 @@
+CACHE MANIFEST
+
+
+CACHE:
+index.html
+css/critical.css
+css/main.css
+img/logo-main-grey.png
+img/logo-main-grey@2x.png
+img/logo-main-white.png
+img/logo-main-white@2x.png
+js/main.js
+
+
+NETWORK:
+http://*
+https://*
+*
+
+
+SETTINGS:
+prefer-online
+
+# hash: 6a193ab4160bd7430257e0e59006e47bc218411e6a1aa03cf68bb195c35d226e
