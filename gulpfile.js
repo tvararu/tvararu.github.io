@@ -85,7 +85,7 @@ gulp.task('build:base', ['wiredep', 'stylus', 'images'], function () {
     .pipe(htmlFilter)
     .pipe($.minifyHtml())
     .pipe(htmlFilter.restore())
-    
+
     .pipe(gulp.dest(paths.dist));
 });
 
@@ -103,24 +103,12 @@ gulp.task('critical', ['build:base'], function(done){
   });
 });
 
-gulp.task('build:critical', ['critical'], function () {
+gulp.task('build', ['critical'], function () {
   return gulp.src(paths.dist + '/index.html')
     .pipe($.replace(
       '<link rel=stylesheet href=css/main.css>',
       '<style>' + CRIT + '</style>'
     ))
-    .pipe(gulp.dest(paths.dist));
-});
-
-gulp.task('build', ['build:critical'], function(){
-  return gulp.src(paths.dist + '/**/*')
-    .pipe($.manifest({
-      hash: true,
-      preferOnline: true,
-      network: ['http://*', 'https://*', '*'],
-      filename: 'app.manifest',
-      exclude: 'app.manifest'
-    }))
     .pipe(gulp.dest(paths.dist));
 });
 
@@ -136,7 +124,7 @@ gulp.task('watch', ['wiredep', 'stylus'], function () {
 
   gulp.watch([paths.tmp + '/**/*'], function() {
     browserSync.reload({ once: true });
-  }); 
+  });
 });
 
 gulp.task('serve', function () {
@@ -158,5 +146,3 @@ gulp.task('pagespeed', function (done) {
     });
   });
 });
-
-
