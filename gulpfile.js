@@ -121,7 +121,11 @@ gulp.task('watch', ['wiredep', 'stylus'], function () {
     }
   });
 
-  gulp.watch([paths.tmp + '/**/*'], function() {
+  gulp.watch([
+    paths.tmp + '/**/*',
+    paths.app + '/**/*.html',
+    paths.app + '/**/*.js',
+  ], function () {
     browserSync.reload({ once: true });
   });
 });
