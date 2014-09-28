@@ -7,9 +7,8 @@ var wiredep = require('wiredep').stream;
 var browserSync = require('browser-sync');
 var saveLicense = require('uglify-save-license');
 var penthouse = require('penthouse');
-var Promise = require('bluebird');
-var penthouseAsync = Promise.promisify(penthouse);
-var fs = require('fs');
+var bluebird = require('bluebird');
+var penthouseAsync = bluebird.promisify(penthouse);
 var pagespeed = require('psi');
 var ngrok = require('ngrok');
 
