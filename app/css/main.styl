@@ -30,6 +30,7 @@ html, body, .container {
 
 #logo-background, #logo-foreground {
   position: absolute;
+  opacity: 0;
 }
 
 #logo-background {
@@ -37,7 +38,6 @@ html, body, .container {
   width: 16em;
   height: 8em;
   background-size: 16em 8em;
-  transform: scale(0.99);
 }
 
 #logo-foreground {
@@ -45,7 +45,6 @@ html, body, .container {
   width: 16em;
   height: 8em;
   background-size: 16em 8em;
-  transform: translateZ(10px);
 }
 
 @media all and (-webkit-min-device-pixel-ratio: 1.5) {
@@ -117,4 +116,8 @@ html, body, .container {
 .link-animate a:focus::before {
   opacity: 1;
   transform: scale(1);
+}
+
+.js-velocity-hook {
+  opacity: 0;
 }

@@ -45,8 +45,6 @@ $(document).ready(function() {
     }
   };
 
-  $wrapper.mousemove(lookAtMouse);
-
   if (Modernizr.touch) {
     for (var i = 0, len = browsers.length; i < len; i++) {
       $logo.css(browsers[i] + 'transition', 'all 0.2s');
@@ -73,7 +71,7 @@ $(document).ready(function() {
 
   var x = (window.innerWidth / 2) - 128;
   var y = 96;
-  
+
   $(window).resize(function () {
     x = (window.innerWidth / 2) - 128;
   });
@@ -81,10 +79,33 @@ $(document).ready(function() {
   impulseLogo.position(x, y);
 
   impulseLogo.drag()
-    .on('move', function () {
-      console.log('hi');
-    })
     .on('end', function() {
-      impulseLogo.spring({ tension: 50, damping: 5 }).to(x, y).start();
+      impulseLogo.spring({ tension: 100, damping: 5 }).to(x, y).start();
     });
+
+  // Yay! Nested callbacks!
+  $('.js-velocity-hook').velocity('transition.slideUpIn', {
+    duration: 350,
+    stagger: 100,
+    complete: function () {
+      $('.js-logo-hook').velocity('transition.slideDownIn', {
+        duration: 350,
+        complete: function () {
+          $('#logo-background').velocity({
+            scale: 0.99,
+          }, {
+            complete: function () {
+              $('#logo-foreground').velocity({
+                translateZ: 10,
+              }, {
+                complete: function () {
+                  $wrapper.mousemove(lookAtMouse);
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+  });
 });
