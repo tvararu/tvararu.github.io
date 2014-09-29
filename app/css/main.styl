@@ -9,6 +9,7 @@ html, body, .container {
   font-size: 16px;
   line-height: 1.5em;
   color: #333;
+  overflow: hidden;
 }
 
 .container {
@@ -19,16 +20,11 @@ html, body, .container {
 #logo-wrapper {
   width: 16em;
   height: 8em;
-  position: absolute;
-  left: 50%;
-  top: 4em;
-  transform: translate3d(-50%, 0, 0);
 }
 
 #logo {
   width: 16em;
   height: 8em;
-  position: absolute;
   transform-style: preserve-3d;
 }
 
@@ -56,7 +52,7 @@ html, body, .container {
   #logo-background {
     background-image: url('../img/logo-main-grey@2x.png');
   }
-  
+
   #logo-foreground {
     background-image: url('../img/logo-main-white@2x.png');
   }
@@ -75,14 +71,14 @@ html, body, .container {
   font-size: 2em;
   line-height: 2em;
   margin-bottom: 1em;
-  
+
   font-weight: 400;
 }
 
 .copy .two-col span {
   width: 8em;
   float: left;
-  
+
   font-weight: 600;
 }
 

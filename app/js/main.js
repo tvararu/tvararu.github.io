@@ -24,7 +24,7 @@ $(document).ready(function() {
   var $wrapper = $('.container');
   var $logo = $('#logo');
 
-  $wrapper.mousemove(function(event) {
+  var lookAtMouse = function(event) {
     cx = Math.ceil($logo.width() / 2.0);
     cy = Math.ceil($logo.height() / 2.0);
 
@@ -43,7 +43,9 @@ $(document).ready(function() {
         'rotate3d(' + tiltx + ', ' + tilty + ', 0, ' + degree + 'deg)'
       );
     }
-  });
+  };
+
+  $wrapper.mousemove(lookAtMouse);
 
   if (Modernizr.touch) {
     for (var i = 0, len = browsers.length; i < len; i++) {
@@ -63,4 +65,26 @@ $(document).ready(function() {
       }
     });
   }
+
+  impulseLogo = Impulse($('#logo-wrapper'))
+    .style('translate', function(x, y) {
+      return x + 'px, ' + y + 'px';
+    });
+
+  var x = (window.innerWidth / 2) - 128;
+  var y = 96;
+  
+  $(window).resize(function () {
+    x = (window.innerWidth / 2) - 128;
+  });
+
+  impulseLogo.position(x, y);
+
+  impulseLogo.drag()
+    .on('move', function () {
+      console.log('hi');
+    })
+    .on('end', function() {
+      impulseLogo.spring({ tension: 50, damping: 5 }).to(x, y).start();
+    });
 });
