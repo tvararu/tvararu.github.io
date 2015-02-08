@@ -1,11 +1,11 @@
-var loadCSS = function (path) {
-  var cb = function () {
+var loadCSS = function(path) {
+  var cb = function() {
     var l = document.createElement('link'); l.rel = 'stylesheet';
     l.href = path;
     var h = document.getElementsByTagName('head')[0]; h.parentNode.insertBefore(l, h);
   };
-  var raf = requestAnimationFrame || mozRequestAnimationFrame ||
-      webkitRequestAnimationFrame || msRequestAnimationFrame;
+  var raf = requestAnimationFrame || window.mozRequestAnimationFrame ||
+      window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
   if (raf) {
     raf(cb);
   } else {
@@ -17,25 +17,25 @@ $(document).ready(function() {
   loadCSS('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&subset=latin,latin-ext');
   loadCSS('css/main.css');
 
-  $('.links .email').html("<a href='mailto:&#116;&#104;&#101;&#111;&#64;" +
-  "&#118;&#97;&#114;&#97;&#114;&#117;&#46;&#111;&#114;&#103;'>Email</a>");
+  $('.links .email').html('<a href=\'mailto:&#116;&#104;&#101;&#111;&#64;' +
+  '&#118;&#97;&#114;&#97;&#114;&#117;&#46;&#111;&#114;&#103;\'>Email</a>');
 
   var browsers = ['-ms-', '-webkit-', '-moz-', '-o-', ''];
   var $wrapper = $('.container');
   var $logo = $('#logo');
 
   var lookAtMouse = function(event) {
-    cx = Math.ceil($logo.width() / 2.0);
-    cy = Math.ceil($logo.height() / 2.0);
+    var cx = Math.ceil($logo.width() / 2.0);
+    var cy = Math.ceil($logo.height() / 2.0);
 
     var off = $logo.offset();
-    dx = event.pageX - cx - off.left;
-    dy = event.pageY - cy - off.top;
+    var dx = event.pageX - cx - off.left;
+    var dy = event.pageY - cy - off.top;
 
-    tiltx = -(dy / cy);
-    tilty = (dx / cx);
-    radius = Math.sqrt(Math.pow(tiltx, 2) + Math.pow(tilty, 2));
-    degree = (radius * 20);
+    var tiltx = -(dy / cy);
+    var tilty = (dx / cx);
+    var radius = Math.sqrt(Math.pow(tiltx, 2) + Math.pow(tilty, 2));
+    var degree = (radius * 20);
 
     for (var i = 0, len = browsers.length; i < len; i++) {
       $logo.css(
@@ -64,7 +64,7 @@ $(document).ready(function() {
     });
   }
 
-  impulseLogo = Impulse($('#logo-wrapper'))
+  var impulseLogo = window.Impulse($('#logo-wrapper'))
     .style('translate', function(x, y) {
       return x + 'px, ' + y + 'px';
     });
@@ -72,7 +72,7 @@ $(document).ready(function() {
   var x = (window.innerWidth / 2) - 128;
   var y = 96;
 
-  $(window).resize(function () {
+  $(window).resize(function() {
     x = (window.innerWidth / 2) - 128;
   });
 
@@ -83,29 +83,17 @@ $(document).ready(function() {
       impulseLogo.spring({ tension: 100, damping: 5 }).to(x, y).start();
     });
 
-  // Yay! Nested callbacks!
-  $('.js-velocity-hook').velocity('transition.slideUpIn', {
-    duration: 350,
-    stagger: 100,
-    complete: function () {
-      $('.js-logo-hook').velocity('transition.slideDownIn', {
-        duration: 350,
-        complete: function () {
-          $('#logo-background').velocity({
-            scale: 0.99,
-          }, {
-            complete: function () {
-              $('#logo-foreground').velocity({
-                translateZ: 10,
-              }, {
-                complete: function () {
-                  $wrapper.mousemove(lookAtMouse);
-                }
-              });
-            }
-          });
-        }
-      });
-    }
-  });
+  $.Velocity.animate($('.js-velocity-hook'), 'transition.slideUpIn', { duration: 350, stagger: 100 })
+    .then(function() {
+      return $.Velocity.animate($('.js-logo-hook'), 'transition.slideDownIn', { duration: 350 });
+    })
+    .then(function() {
+      return $.Velocity.animate($('#logo-background'), { scale: 0.99 });
+    })
+    .then(function() {
+      return $.Velocity.animate($('#logo-foreground'), { translateZ: 10 });
+    })
+    .then(function() {
+      $wrapper.mousemove(lookAtMouse);
+    });
 });

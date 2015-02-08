@@ -39,29 +39,28 @@ var opts = {
   }
 };
 
-
 gulp.task('default', ['build']);
 
-gulp.task('wiredep', function () {
+gulp.task('wiredep', function() {
   return gulp.src(paths.app + '/index.html')
     .pipe(wiredep())
     .pipe(gulp.dest(paths.app));
 });
 
-gulp.task('stylus', function () {
+gulp.task('stylus', function() {
   return gulp.src(paths.app + '/css/main.styl')
     .pipe($.stylus())
     .pipe($.autoprefixer(opts.autoprefixer))
     .pipe(gulp.dest(paths.tmp + '/css'));
 });
 
-gulp.task('images', function () {
+gulp.task('images', function() {
   return gulp.src(paths.app + '/img/**.*')
     .pipe($.cache($.imagemin(opts.imagemin)))
     .pipe(gulp.dest(paths.dist + '/img'));
 });
 
-gulp.task('build:base', ['wiredep', 'stylus', 'images'], function () {
+gulp.task('build:base', ['wiredep', 'stylus', 'images'], function() {
   var jsFilter = $.filter('**/*.js');
   var cssFilter = $.filter('**/*.css');
   var htmlFilter = $.filter('**/*.html');
@@ -90,19 +89,19 @@ gulp.task('build:base', ['wiredep', 'stylus', 'images'], function () {
 
 var CRIT = '';
 
-gulp.task('critical', ['build:base'], function(done){
+gulp.task('critical', ['build:base'], function(done) {
   penthouseAsync({
     url: 'http://localhost:3000',
     css: paths.dist + '/css/main.css',
     width: 1440,
     height: 900
-  }).then(function (criticalCSS) {
+  }).then(function(criticalCSS) {
     CRIT = criticalCSS.replace('\n', '');
     done();
   });
 });
 
-gulp.task('build', ['critical'], function () {
+gulp.task('build', ['critical'], function() {
   return gulp.src(paths.dist + '/index.html')
     .pipe($.replace(
       '<link rel=stylesheet href=css/main.css>',
@@ -111,7 +110,7 @@ gulp.task('build', ['critical'], function () {
     .pipe(gulp.dest(paths.dist));
 });
 
-gulp.task('watch', ['wiredep', 'stylus'], function () {
+gulp.task('watch', ['wiredep', 'stylus'], function() {
   gulp.watch(['bower.json'], ['wiredep']);
   gulp.watch([paths.app + '/css/**.*'], ['stylus']);
 
@@ -125,12 +124,12 @@ gulp.task('watch', ['wiredep', 'stylus'], function () {
     paths.tmp + '/**/*',
     paths.app + '/**/*.html',
     paths.app + '/**/*.js',
-  ], function () {
+  ], function() {
     browserSync.reload({ once: true });
   });
 });
 
-gulp.task('serve', function () {
+gulp.task('serve', function() {
   browserSync.init(null, {
     server: {
       baseDir: paths.dist
@@ -138,12 +137,12 @@ gulp.task('serve', function () {
   });
 });
 
-gulp.task('pagespeed', function (done) {
+gulp.task('pagespeed', function(done) {
   ngrok.connect(3000, function(err, url) {
     pagespeed({
       url: url,
       strategy: 'mobile'
-    }, function () {
+    }, function() {
       done();
       process.exit(0);
     });
