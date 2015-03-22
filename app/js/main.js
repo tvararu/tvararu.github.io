@@ -84,11 +84,20 @@ $(document).ready(function() {
   var composer = new THREE.EffectComposer(renderer);
   composer.addPass(new THREE.RenderPass(scene, camera));
 
-  var filmEffect = new THREE.ShaderPass(THREE.FilmShader);
-  filmEffect.renderToScreen = true;
-  composer.addPass(filmEffect);
+  var bokehPass = new THREE.BokehPass(scene, camera, {});
+  bokehPass.uniforms['focus'].value = 0.8;
+  bokehPass.uniforms['aperture'].value = 0.025;
+  bokehPass.uniforms['maxblur'].value = 3;
+  bokehPass.renderToScreen = true;
+  composer.addPass(bokehPass);
 
+  var dir = -0.001;
   function render() {
+    // bokehPass.uniforms['aperture'].value += dir;
+    // if (bokehPass.uniforms['aperture'].value <= 0.0 ||
+    //     bokehPass.uniforms['aperture'].value > 0.025) {
+    //   dir *= -1;
+    // }
     // particleSystem.rotation.y += 0.01;
     // filmGrain.uniforms['timer'].value += 0.001;
 
