@@ -5,7 +5,6 @@ var $ = require('gulp-load-plugins')();
 
 var wiredep = require('wiredep').stream;
 var browserSync = require('browser-sync');
-var saveLicense = require('uglify-save-license');
 var penthouse = require('penthouse');
 var bluebird = require('bluebird');
 var penthouseAsync = bluebird.promisify(penthouse);
@@ -30,9 +29,6 @@ var opts = {
     'android >= 4.4',
     'bb >= 10'
   ],
-  uglify: {
-    preserveComments: saveLicense
-  },
   imagemin: {
     progressive: true,
     interlaced: true
@@ -70,7 +66,7 @@ gulp.task('build:base', ['wiredep', 'stylus', 'images'], function() {
     .pipe(assets)
 
     .pipe(jsFilter)
-    .pipe($.uglify(opts.uglify))
+    .pipe($.uglify())
     .pipe(jsFilter.restore())
 
     .pipe(cssFilter)
@@ -139,6 +135,9 @@ gulp.task('serve', function() {
 
 gulp.task('pagespeed', function(done) {
   ngrok.connect(3000, function(err, url) {
+    if (err) {
+      throw err;
+    }
     pagespeed({
       url: url,
       strategy: 'mobile'

@@ -14,7 +14,6 @@ var loadCSS = function(path) {
 };
 
 $(document).ready(function() {
-  loadCSS('http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600&subset=latin,latin-ext');
   loadCSS('css/main.css');
 
   $('.links .email').html('<a href=\'mailto:&#116;&#104;&#101;&#111;&#64;' +
