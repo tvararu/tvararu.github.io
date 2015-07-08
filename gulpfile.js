@@ -4,16 +4,9 @@ var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 
 var wiredep = require('wiredep').stream;
-var browserSync = require('browser-sync');
-var penthouse = require('penthouse');
-var bluebird = require('bluebird');
-var penthouseAsync = bluebird.promisify(penthouse);
-var pagespeed = require('psi');
-var ngrok = require('ngrok');
 
 var paths = {
   app: 'app',
-  tmp: '.tmp',
   dist: 'dist'
 };
 
@@ -35,7 +28,7 @@ var opts = {
   }
 };
 
-gulp.task('default', ['build']);
+gulp.task('default', ['build:base']);
 
 gulp.task('wiredep', function() {
   return gulp.src(paths.app + '/index.html')
@@ -47,7 +40,7 @@ gulp.task('stylus', function() {
   return gulp.src(paths.app + '/css/main.styl')
     .pipe($.stylus())
     .pipe($.autoprefixer(opts.autoprefixer))
-    .pipe(gulp.dest(paths.tmp + '/css'));
+    .pipe(gulp.dest(paths.dist + '/css'));
 });
 
 gulp.task('images', function() {
@@ -81,69 +74,4 @@ gulp.task('build:base', ['wiredep', 'stylus', 'images'], function() {
     .pipe(htmlFilter.restore())
 
     .pipe(gulp.dest(paths.dist));
-});
-
-var CRIT = '';
-
-gulp.task('critical', ['build:base'], function(done) {
-  penthouseAsync({
-    url: 'http://localhost:3000',
-    css: paths.dist + '/css/main.css',
-    width: 1440,
-    height: 900
-  }).then(function(criticalCSS) {
-    CRIT = criticalCSS.replace('\n', '');
-    done();
-  });
-});
-
-gulp.task('build', ['critical'], function() {
-  return gulp.src(paths.dist + '/index.html')
-    .pipe($.replace(
-      '<link rel=stylesheet href=css/main.css>',
-      '<style>' + CRIT + '</style>'
-    ))
-    .pipe(gulp.dest(paths.dist));
-});
-
-gulp.task('watch', ['wiredep', 'stylus'], function() {
-  gulp.watch(['bower.json'], ['wiredep']);
-  gulp.watch([paths.app + '/css/**.*'], ['stylus']);
-
-  browserSync.init(null, {
-    server: {
-      baseDir: [paths.app, paths.tmp]
-    }
-  });
-
-  gulp.watch([
-    paths.tmp + '/**/*',
-    paths.app + '/**/*.html',
-    paths.app + '/**/*.js',
-  ], function() {
-    browserSync.reload({ once: true });
-  });
-});
-
-gulp.task('serve', function() {
-  browserSync.init(null, {
-    server: {
-      baseDir: paths.dist
-    }
-  });
-});
-
-gulp.task('pagespeed', function(done) {
-  ngrok.connect(3000, function(err, url) {
-    if (err) {
-      throw err;
-    }
-    pagespeed({
-      url: url,
-      strategy: 'mobile'
-    }, function() {
-      done();
-      process.exit(0);
-    });
-  });
 });
